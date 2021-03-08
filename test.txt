@@ -1,3 +1,9 @@
-int x = 0;
+int# x = 0#;
+int k009 = 0;
+int k__ = 90;
 int k = 1;
-int aushaush === 14.1414.90
+int numero_decimal === 14.1414.90
+int x = 4;
+x++
+int abc !==! = 23
+if a&&b + 4
