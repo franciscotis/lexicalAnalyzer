@@ -15,11 +15,11 @@ class Logic(Token):
         return False
 
     def notValidRelational(self,currentChar):
-        if( (not (self.value+currentChar in self.supported_value)) and (not self.validNeighbors(currentChar))):
+        if(not self.validNeighbors(currentChar)):
             return True
         return False
 
     def returnValue(self, current_line):
-        self.type = 'OPLO'
+        self.type = 'LOG' if not self.error else 'opMF'
         self.current_line = current_line
         return self.getToken()

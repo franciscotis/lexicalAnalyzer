@@ -4,9 +4,12 @@ class FileManagement:
         self.filecontent = ''
 
     def read_file(self):
-        with open(self.filename, 'r') as arquivo:
+        with open(self.filename, 'r', encoding='utf-8') as arquivo:
             for line in arquivo:
-                self.filecontent+=line
+                if line=='\n':
+                    self.filecontent+='\n'
+                else:
+                    self.filecontent+=line
         return self.filecontent
 
         

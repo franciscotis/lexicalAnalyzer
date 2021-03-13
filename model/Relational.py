@@ -15,11 +15,11 @@ class Relational(Token):
         return False
 
     def notValidRelational(self,currentChar):
-        if((not self.isRelationalOperator(currentChar)) or (not self.validNeighbors(currentChar))):
+        if(not self.validNeighbors(currentChar)):
             return True
         return False
 
     def returnValue(self, current_line):
-        self.type = 'OPRE'
+        self.type = 'REL' if not self.error else 'opMF'
         self.current_line = current_line
         return self.getToken()

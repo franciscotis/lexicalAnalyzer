@@ -1,3 +1,6 @@
+!=;
+
+=!;
 int# x = 0#;
 int k009 = 0;
 int k__ = 90;
@@ -6,4 +9,7 @@ int numero_decimal === 14.1414.90
 int x = 4;
 x++
 int abc !==! = 23
-if a&&b + 4
+if a&&b += 4
+1234a1234
+i++ +(5)
+10 <=2

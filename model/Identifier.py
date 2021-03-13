@@ -22,8 +22,8 @@ class Identifier(Token):
     
     def returnValue(self, current_line):
         if self.isReserved(self.value):
-            self.type = 'RES'
+            self.type = 'PRE' 
         else:
-            self.type = 'ID'
+            self.type = 'IDE' if not self.error else 'ideMF'
         self.current_line = current_line
         return self.getToken()

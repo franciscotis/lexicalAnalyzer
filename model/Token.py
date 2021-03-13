@@ -11,9 +11,7 @@ class Token:
         self.error = False
     
     def getToken(self):
-        if self.error:
-            return "Malformed {} ({}) on line {}".format(self.type,self.value, self.current_line)
-        return "{} - <{}, {}>".format(self.current_line,self.type, self.value)
+        return "{} {} {}".format(self.current_line,self.type, self.value)
 
     def setType(self,type):
         self.type = type
@@ -78,6 +76,11 @@ class Token:
     @classmethod
     def isCommentDelimiter(self,char):
         p = re.compile('([\/])')
+        return True if p.match(char) is not None else False
+
+    @classmethod
+    def isDelimiter(self,char):
+        p = re.compile('([;]|[,]|[(]|[)]|[{]|[}]|[\[]|[\]]|[.]|[+]|[-]|[*]|[/])')
         return True if p.match(char) is not None else False
 
     def compareArithmeticValid(self,char,term):
