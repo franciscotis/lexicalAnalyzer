@@ -7,11 +7,13 @@ from model.Arithmetic import Arithmetic
 from model.Relational import Relational
 from model.Logic import Logic
 from model.Delimiter import Delimiter
+from model.Comment import Comment
 
 class Lexical:
     def __init__(self,filename):
         self.file = FileManagement(filename)
         self.content = list(self.file.read_file())
+        self.content.append(' ')
         self.current_state = 0
         self.array_pointer = 0
         self.real_number = False
@@ -24,6 +26,7 @@ class Lexical:
                 currentChar = self.getNextChar()
                 if(currentChar is not None):
                     if self.current_state==0:
+                        self.current_token = None
                         if(Token.isChar(currentChar)):
                             self.current_state = 1
                             self.current_token = Identifier(currentChar)
@@ -31,8 +34,13 @@ class Lexical:
                             self.current_state = 2
                             self.current_token = Digit(currentChar)
                         elif(Token.isArithmeticOperator(currentChar)):
-                            self.current_state = 3
-                            self.current_token = Arithmetic(currentChar)
+                            nextChar = self.content[self.array_pointer]
+                            if(Token.isCommentDelimiter(currentChar, nextChar)):
+                                self.current_state = 7
+                                self.current_token = Comment(currentChar+nextChar)
+                            else:
+                                self.current_state = 3
+                                self.current_token = Arithmetic(currentChar)
                         elif(Token.isRelationalOperator(currentChar)):
                             self.current_state = 4
                             self.current_token = Relational(currentChar)
@@ -132,6 +140,21 @@ class Lexical:
                                 self.current_state = 0
                                 self.back()
                                 return self.current_token.returnValue(self.current_line)
+                    elif self.current_state==7:
+                        if(self.current_token.isInlineComment()):
+                            if(self.current_token.isEndInlineComment(currentChar)):
+                                self.current_state = 0
+                                self.back()
+                            else:
+                                self.current_state = 7
+                        elif(self.current_token.isBlockComment() and not Token.isSpace(currentChar)):
+                            nextChar = self.getNextChar()
+                            if(nextChar==None):
+                                self.current_state = 0
+                                return self.current_token.returnValue(self.current_line)
+                            elif(self.current_token.isEndBlockComment(currentChar+nextChar)):
+                                self.current_state = 0
+                            else: self.current_state = 7
                 else:
                     if(self.current_token):
                         token = self.current_token.returnValue(self.current_line)

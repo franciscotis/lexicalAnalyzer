@@ -74,9 +74,8 @@ class Token:
         return True if p.match(char) is not None else False
 
     @classmethod
-    def isCommentDelimiter(self,char):
-        p = re.compile('([\/])')
-        return True if p.match(char) is not None else False
+    def isCommentDelimiter(self, char1, char2):
+        return (char1+char2 == '//' or char1+char2 == '/*')
 
     @classmethod
     def isDelimiter(self,char):
