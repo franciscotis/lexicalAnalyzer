@@ -11,6 +11,7 @@ from model.Comment import Comment
 
 class Lexical:
     def __init__(self,filename):
+        print(filename)
         self.file = FileManagement(filename)
         self.content = list(self.file.read_file())
         self.content.append(' ')
@@ -19,6 +20,15 @@ class Lexical:
         self.real_number = False
         self.current_token = None
         self.current_line = 1
+        self.token_list = []
+        self.can_read = True
+
+
+    def run(self):
+        result = self.nextToken()
+        while(result!= None):
+            result = self.nextToken()
+        self.file.print_file(self.token_list)
 
     def nextToken(self):
         if(self.array_pointer <= len(self.content)):
@@ -63,6 +73,7 @@ class Lexical:
                             else:
                                 self.current_state = 0
                                 self.back()
+                                self.token_list.append(self.current_token.returnValue(self.current_line))
                                 return self.current_token.returnValue(self.current_line)
                     elif(self.current_state==2):
                         if(self.current_token.isValid(currentChar) and not Token.isSpace(currentChar)):
@@ -75,6 +86,7 @@ class Lexical:
                             else:
                                 self.current_state = 0
                                 self.back()
+                                self.token_list.append(self.current_token.returnValue(self.current_line))
                                 return self.current_token.returnValue(self.current_line)
                     elif self.current_state ==3:
                         if(self.current_token.isValid(currentChar) and not Token.isSpace(currentChar)):
@@ -87,10 +99,12 @@ class Lexical:
                             elif Token.isSpace(currentChar):
                                 self.current_state = 0
                                 self.back()
+                                self.token_list.append(self.current_token.returnValue(self.current_line))
                                 return self.current_token.returnValue(self.current_line)
                             else:
                                 self.current_state = 0
                                 self.back()
+                                self.token_list.append(self.current_token.returnValue(self.current_line))
                                 return self.current_token.returnValue(self.current_line)
                     elif self.current_state ==4:
                         if(self.current_token.isValid(currentChar) and not Token.isSpace(currentChar)):
@@ -103,10 +117,12 @@ class Lexical:
                             elif Token.isSpace(currentChar):
                                 self.current_state = 0
                                 self.back()
+                                self.token_list.append(self.current_token.returnValue(self.current_line))
                                 return self.current_token.returnValue(self.current_line)
                             else:
                                 self.current_state = 0
                                 self.back()
+                                self.token_list.append(self.current_token.returnValue(self.current_line))
                                 return self.current_token.returnValue(self.current_line)
                     elif self.current_state==5:
                         if(self.current_token.isValid(currentChar) and not Token.isSpace(currentChar)):
@@ -119,10 +135,12 @@ class Lexical:
                             elif Token.isSpace(currentChar):
                                 self.current_state = 0
                                 self.back()
+                                self.token_list.append(self.current_token.returnValue(self.current_line))
                                 return self.current_token.returnValue(self.current_line)
                             else:
                                 self.current_state = 0
                                 self.back()
+                                self.token_list.append(self.current_token.returnValue(self.current_line))
                                 return self.current_token.returnValue(self.current_line)
                     elif self.current_state==6:
                         if(self.current_token.isValid(currentChar) and not Token.isSpace(currentChar)):
@@ -135,10 +153,12 @@ class Lexical:
                             elif Token.isSpace(currentChar):
                                 self.current_state = 0
                                 self.back()
+                                self.token_list.append(self.current_token.returnValue(self.current_line))
                                 return self.current_token.returnValue(self.current_line)
                             else:
                                 self.current_state = 0
                                 self.back()
+                                self.token_list.append(self.current_token.returnValue(self.current_line))
                                 return self.current_token.returnValue(self.current_line)
                     elif self.current_state==7:
                         if(self.current_token.isInlineComment()):
@@ -151,6 +171,7 @@ class Lexical:
                             nextChar = self.getNextChar()
                             if(nextChar==None):
                                 self.current_state = 0
+                                self.token_list.append(self.current_token.returnValue(self.current_line))
                                 return self.current_token.returnValue(self.current_line)
                             elif(self.current_token.isEndBlockComment(currentChar+nextChar)):
                                 self.current_state = 0
@@ -159,9 +180,12 @@ class Lexical:
                     if(self.current_token):
                         token = self.current_token.returnValue(self.current_line)
                         self.current_token = None
+                        self.token_list.append(token(self.current_line))
                         return token
-
-        
+                    return
+        else:
+            return None
+                    
                    
     def getNextChar(self):
         if self.array_pointer < len(self.content):

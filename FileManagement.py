@@ -1,3 +1,4 @@
+import re
 class FileManagement:
     def __init__(self, filename):
         self.filename = filename
@@ -11,6 +12,14 @@ class FileManagement:
                 else:
                     self.filecontent+=line
         return self.filecontent
+
+    def print_file(self,content):
+        file_number = re.findall(r'\d+',self.filename)
+        with open('output{}.txt'.format(file_number[0]),'w',encoding='utf-8') as arquivo:
+            for cont in content:
+                arquivo.write(cont)
+                arquivo.write('\n')
+            
 
         
     

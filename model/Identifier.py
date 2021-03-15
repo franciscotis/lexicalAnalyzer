@@ -3,7 +3,7 @@ from model.Token import Token
 class Identifier(Token):
     def __init__(self,value):
         Token.__init__(self,value)
-        self.supported_neighbors = '([+]|[-]|[*]|[=]|[!]|[>]|[<]|[\/]|[;]|[,]|[&]|[|])'
+        self.supported_neighbors = '([+]|[-]|[*]|[=]|[!]|[>]|[<]|[\/]|[;]|[,]|[&]|[|]|[(]|[)]|[{]|[}])'
         self.reserved_words = ("var","const","typedef","struct","extends","procedure","function","start","return","if","else","then","while","read","print","int","real","boolean","string","true","false","global","local")  
         self.value = value
 

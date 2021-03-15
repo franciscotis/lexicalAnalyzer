@@ -1,6 +1,5 @@
-from Lexical import Lexical
+from ProgramStart import ProgramStart
 
-lexical = Lexical('test.txt')
+ps = ProgramStart()
+ps.analyze()
 
-while(True):
-    print(lexical.nextToken())
