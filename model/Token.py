@@ -82,6 +82,14 @@ class Token:
         p = re.compile('([;]|[,]|[(]|[)]|[{]|[}]|[\[]|[\]]|[.]|[+]|[-]|[*]|[/])')
         return True if p.match(char) is not None else False
 
+    @classmethod
+    def isStringDelimeter(self, char):
+        return (char=='"')
+
+    @classmethod
+    def isSymbol(self, char):
+        return True if(re.match('[\x20-\x21]|[\x23-\x7e]', char)) else False
+
     def compareArithmeticValid(self,char,term):
         if term+char== '++' or term+char == '--':
             return True

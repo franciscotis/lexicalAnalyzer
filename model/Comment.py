@@ -1,5 +1,4 @@
 from model.Token import Token
-import re
 
 class Comment(Token):
     def __init__(self, value):

@@ -7,18 +7,12 @@
 1 DEL {
 2 IDE system
 2 DEL (
-2 ideMF cls"
+2 CAD "cls"
 2 DEL )
 2 DEL ;
 3 IDE printf
 3 DEL (
-3 ideMF n\n\nTecle
-3 NRO 1
-3 IDE para
-3 IDE retornar
-3 IDE ao
-3 IDE menu
-3 ideMF inicial.\n"
+3 CAD "\n\n\nTecle 1 para retornar ao menu inicial.\n"
 3 DEL )
 3 DEL ;
 4 PRE int
