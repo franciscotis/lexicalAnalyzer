@@ -19,6 +19,9 @@ class Identifier(Token):
 
     def isReserved(self, term):
         return True if term in self.reserved_words else False
+
+    def setError(self,value):
+        self.error = value
     
     def returnValue(self, current_line):
         if self.isReserved(self.value):

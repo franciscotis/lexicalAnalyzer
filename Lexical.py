@@ -66,6 +66,11 @@ class Lexical:
                             self.current_token = String(currentChar)
                         elif(currentChar == '\n'):
                             self.current_line+=1
+                        else:
+                            if(not Token.isSpace(currentChar)):
+                                self.current_state = 1
+                                self.current_token = Identifier(currentChar)
+                                self.current_token.error = True
                     elif(self.current_state ==1):
                         if(self.current_token.isValid(currentChar) and not Token.isSpace(currentChar)):
                             self.current_token.setValue(currentChar)
@@ -182,7 +187,12 @@ class Lexical:
                             else: self.current_state = 7
                     elif self.current_state==8:
                         self.current_token.setValue(currentChar)
-                        if(self.current_token.isValid(currentChar)): pass
+                        if(self.current_token.isEndOfLine(currentChar)):
+                            self.back()
+                            self.current_state = 0
+                            self.token_list.append(self.current_token.returnValue(self.current_line))
+                            return self.current_token.returnValue(self.current_line)
+                        elif(self.current_token.isValid(currentChar)): pass
                         elif(Token.isStringDelimeter(currentChar)):
                             prevChar = self.content[self.array_pointer-2]
                             if(not self.current_token.isEscapedDelimeter(prevChar+currentChar)):
@@ -192,6 +202,7 @@ class Lexical:
                                 return self.current_token.returnValue(self.current_line)
                         elif(not Token.isSymbol(currentChar)):
                             self.current_token.unknown_symbol = True
+            
                 else:
                     if(self.current_token):
                         token = self.current_token.returnValue(self.current_line)

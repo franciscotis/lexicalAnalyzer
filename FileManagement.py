@@ -17,7 +17,7 @@ class FileManagement:
         file_number = re.findall(r'\d+',self.filename)
         with open('output{}.txt'.format(file_number[0]),'w',encoding='utf-8') as arquivo:
             for cont in content:
-                arquivo.write(cont)
+                arquivo.write(cont.strip())
                 arquivo.write('\n')
             
 
