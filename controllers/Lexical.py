@@ -186,17 +186,15 @@ class Lexical:
                             if(self.current_token.isEndInlineComment(currentChar)):
                                 self.current_state = 0
                                 self.back()
-                            else:
-                                self.current_state = 7
-                        elif(self.current_token.isBlockComment() and not Token.isSpace(currentChar)):
-                            nextChar = self.getNextChar()
-                            if(nextChar==None):
-                                self.current_state = 0
-                                self.token_list.append(self.current_token.returnValue(self.current_line))
-                                return self.current_token.returnValue(self.current_line)
-                            elif(self.current_token.isEndBlockComment(currentChar+nextChar)):
-                                self.current_state = 0
-                            else: self.current_state = 7
+
+                        elif(self.current_token.isBlockComment()):
+                            if(self.current_token.isBreakLine(currentChar)): self.current_line+=1
+                            elif(self.array_pointer < len(self.content)):
+                                nextChar = self.content[self.array_pointer]
+                                if(self.current_token.isEndBlockComment(currentChar+nextChar)):      
+                                    self.array_pointer+=1
+                                    self.current_state = 0
+                        
                     elif self.current_state==8:
                         self.current_token.setValue(currentChar)
                         if(self.current_token.isBreakLine(currentChar)):
