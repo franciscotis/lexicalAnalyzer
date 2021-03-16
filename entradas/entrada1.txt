@@ -4,8 +4,7 @@ function int sum(int a, int b){
     return a+b;
 }
 
-/* 
- Comment 2 
+/*  Comment 2 
     Comment 2
 */
 
