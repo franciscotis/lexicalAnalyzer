@@ -10,8 +10,8 @@ class String(Token):
     def setError(self):
         self.error = self.unknown_symbol
 
-    def isEndOfLine(self ,currentChar):
-        if self.isBreakLine(currentChar) and self.value.count('"')==1:
+    def isEndOfLine(self ,currentChar): 
+        if self.isBreakLine(currentChar) and self.value.count('"')==1:  
             self.error = True
             return True
         return False

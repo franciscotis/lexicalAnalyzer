@@ -5,7 +5,7 @@ class Digit(Token):
     def __init__(self, value):
         Token.__init__(self,value)
         self.point_delimiter = False
-        self.supported_neighbors = '([+]|[-]|[*]|[=]|[!]|[>]|[<]|[\/]|[;]|[,]|[(]|[)])'
+        self.supported_neighbors = '([+]|[-]|[*]|[=]|[!]|[>]|[<]|[\/]|[;]|[,]|[(]|[)]|[\[]|[\]])'
 
     def isValid(self, currentChar):
         if(self.isNumber(currentChar)):

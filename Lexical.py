@@ -187,7 +187,7 @@ class Lexical:
                             else: self.current_state = 7
                     elif self.current_state==8:
                         self.current_token.setValue(currentChar)
-                        if(self.current_token.isEndOfLine(currentChar)):
+                        if(self.current_token.isBreakLine(currentChar)):
                             self.back()
                             self.current_state = 0
                             self.token_list.append(self.current_token.returnValue(self.current_line))

@@ -3,7 +3,7 @@ import glob
 class ProgramStart:
     def __init__(self):
         self.txtfiles = []
-        for file in glob.glob("input*.txt"):
+        for file in glob.glob("entrada*.txt"):
             self.txtfiles.append(file)
         print(self.txtfiles)
 

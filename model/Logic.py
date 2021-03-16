@@ -4,7 +4,7 @@ import re
 class Logic(Token):
     def __init__(self, value):
         Token.__init__(self,value)
-        self.supported_neighbors = '([a-z]|[A-Z]|[0-9])'
+        self.supported_neighbors = '([a-z]|[A-Z]|[0-9]|[(])'
         self.supported_value = ['&&','||']
 
     def isValid(self,currentChar):
