@@ -24,7 +24,14 @@ class String(Token):
     def isEscapedDelimeter(self, term):
         return (term=='\\"')
 
+
+    '''
+        Retorno: 
+                 valido   -  CAD - Cadeia de Caracteres
+                 inválido -  CMF - Cadeia mal formada
+    '''
+
     def returnValue(self, current_line):
-        self.type = 'CAD' if not self.error else 'caMF'
+        self.type = 'CAD' if not self.error else 'CMF'
         self.current_line = current_line
         return self.getToken()

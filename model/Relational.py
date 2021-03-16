@@ -19,6 +19,13 @@ class Relational(Token):
             return True
         return False
 
+
+    '''
+        Retorno: 
+                 valido   -  REL - Operador Relacional
+                 inválido -  OpMF - Operador Mal Formado
+    '''
+
     def returnValue(self, current_line):
         self.type = 'REL' if not self.error else 'opMF'
         self.current_line = current_line

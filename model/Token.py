@@ -1,25 +1,34 @@
 import re 
 import abc
 
+'''
+Classe Token as quais as classes modelos serão heradas. Aqui contém os principais métodos
+'''
 class Token:
     def __init__(self, value=''):
-        self.type = ''
-        self.value = value
-        self.current_line = ''
-        self.reserved_words = ''
-        self.supported_neighbors = ''
+        self.type = '' #Tipo do token
+        self.value = value #Valor do token
+        self.current_line = '' #Linha atual
+        self.reserved_words = '' #Palavras reservadas
+        self.supported_neighbors = '' #Caracteres vizinhos que são suportados para cada token
         self.error = False
     
+
     def getToken(self):
+        #Função que retorna o token formatado com a linha atual, o tipo e o seu valor
         return "{} {} {}".format(self.current_line,self.type, self.value)
 
+    
     def setType(self,type):
+        #Função que altera o tipo de token
         self.type = type
 
     def setValue(self,value):
+        #Função que altera o valor do token
         self.value+= value
 
     def validNeighbors(self,currentChar):
+        #Função que verifica se o caractere vizinho de um determinado token é válido
         p = re.compile(self.supported_neighbors)
         return True if p.match(currentChar) is not None else False
     
@@ -90,27 +99,13 @@ class Token:
     def isSymbol(self, char):
         return True if(re.match('[\x20-\x21]|[\x23-\x7e]', char)) else False
 
-    def compareArithmeticValid(self,char,term):
-        if term+char== '++' or term+char == '--':
-            return True
-        else:
-            return False
-
     @classmethod
     def isRelationalOperator(self,char):
         p = re.compile('(=|!|>|<)')
         return True if p.match(char) is not None else False
 
-    def compareRelationalValid(self, char, term):
-        return True if term+char == '==' or term+char =='!=' or term+char =='>=' or term+char =='<=' else False
-    
     @classmethod
     def isLogicOperator(self, char):
         p = re.compile('(&|[|]|!)')
         return True if p.match(char) is not None else False
 
-    def compareOperatorValid(self,char,term):
-        if term+char=='&&' or term+char=='||':
-            return True
-        else:
-            return False

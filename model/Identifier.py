@@ -23,10 +23,18 @@ class Identifier(Token):
     def setError(self,value):
         self.error = value
     
+
+    '''
+        Retorno: 
+                 valido   -  PRE - Palavra Reservada ou IDE - Identificador
+                 inválido -  SIB - Simbolo inválido
+    '''
+
+
     def returnValue(self, current_line):
         if self.isReserved(self.value):
             self.type = 'PRE' 
         else:
-            self.type = 'IDE' if not self.error else 'ideMF'
+            self.type = 'IDE' if not self.error else 'SIB'
         self.current_line = current_line
         return self.getToken()

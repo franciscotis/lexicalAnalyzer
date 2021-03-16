@@ -4,7 +4,7 @@ import re
 class Arithmetic(Token):
     def __init__(self, value):
         Token.__init__(self,value)
-        self.supported_neighbors = '([a-z]|[A-Z]|[0-9]|[(]|[)])'
+        self.supported_neighbors = '([a-z]|[A-Z]|[0-9]|[(]|[)]|[;]|[\[]|[\]])'
         self.supported_value = ['++','--']
 
     def isValid(self, currentChar):
@@ -19,7 +19,13 @@ class Arithmetic(Token):
             return True
         return False
 
+
+    '''
+        Retorno: 
+                 valido   -  ART - Operador Aritmético Valido
+                 inválido -  OpMF - Operador Mal Formado
+    '''
     def returnValue(self, current_line):
-        self.type = 'ART' if not self.error else 'opMF'
+        self.type = 'ART' if not self.error else 'OpMF'
         self.current_line = current_line
         return self.getToken()

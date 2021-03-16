@@ -1,5 +1,5 @@
 import re 
-from FileManagement import FileManagement
+from controllers.FileManagement import FileManagement
 from model.Token import Token
 from model.Identifier import Identifier
 from model.Digit import Digit
@@ -12,7 +12,6 @@ from model.String import String
 
 class Lexical:
     def __init__(self,filename):
-        print(filename)
         self.file = FileManagement(filename)
         self.content = list(self.file.read_file())
         self.content.append(' ')
@@ -30,6 +29,19 @@ class Lexical:
         while(result!= None):
             result = self.nextToken()
         self.file.print_file(self.token_list)
+
+
+    '''
+        Máquina de estados que irá ler os caracteres
+        Estado 00 - Estado Ocioso (espera de novos caracteres)
+        Estado 01 - Estado Identificador (leitura de um caractere que irá formar um identificador ou uma palavra reservada)
+        Estado 02 - Estado Digito (leitura de um caractere que irá formar um dígito)
+        Estado 03 - Estado de Operador Aritmético (leitura de um caractere que irá formar um operador artimético) ou em alguns casos um delimitador de comentário (Estado 07)
+        Estado 04 - Estado Relacional (leitura de um caractere que irá formar um operador relacional)
+        Estado 05 - Estado de Operador Lógico (leitura de um caractere que irá formar um operador lógico)
+        Estado 06 - Estado Delimitador (leitura de um caractere que irá formar um delimitador)
+        Estado 08 - Estado Cadeia de Caracteres (leitura de um caractere que irá formar uma cadeia de caracteres)
+    '''
 
     def nextToken(self):
         if(self.array_pointer <= len(self.content)):
@@ -204,7 +216,7 @@ class Lexical:
                             self.current_token.unknown_symbol = True
             
                 else:
-                    if(self.current_token):
+                    if(self.current_token and self.current_token.value!="//"):
                         token = self.current_token.returnValue(self.current_line)
                         self.current_token = None
                         self.token_list.append(token)
@@ -213,7 +225,7 @@ class Lexical:
         else:
             return None
                     
-                   
+              
     def getNextChar(self):
         if self.array_pointer < len(self.content):
             next_char = self.content[self.array_pointer]

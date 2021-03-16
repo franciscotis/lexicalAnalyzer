@@ -15,8 +15,12 @@ class Comment(Token):
 
     def isEndBlockComment(self, term):
         return (term=='*/')
+    '''
+        Retorno: 
+                 inválido -  CoMF - Comentário Mal Formado
+    '''
     
     def returnValue(self, current_line):
-        self.type = 'coMF'
+        self.type = 'CoMF'
         self.current_line = current_line
         return self.getToken()

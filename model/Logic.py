@@ -10,7 +10,7 @@ class Logic(Token):
     def isValid(self,currentChar):
         if(self.isLogicOperator(currentChar) and (self.value+currentChar in self.supported_value)):
             return True
-        elif(self.notValidRelational(currentChar) and not self.isSpace(currentChar)):
+        elif( (self.notValidRelational(currentChar) and not self.isSpace(currentChar)) or self.singleRelational(currentChar)):
             self.error = True
         return False
 
@@ -19,7 +19,19 @@ class Logic(Token):
             return True
         return False
 
+    def singleRelational(self,currentChar):
+        if (self.isSpace(currentChar)) and (self.value=="|" or self.value =="&"):
+            return True
+        return False
+
+
+    '''
+        Retorno: 
+                 valido   -  LOG - Operador Lógico
+                 inválido -  OpMF - Simbolo Inválido
+    '''
+
     def returnValue(self, current_line):
-        self.type = 'LOG' if not self.error else 'opMF'
+        self.type = 'LOG' if not self.error else 'OpMF'
         self.current_line = current_line
         return self.getToken()

@@ -15,7 +15,7 @@ class FileManagement:
 
     def print_file(self,content):
         file_number = re.findall(r'\d+',self.filename)
-        with open('saida{}.txt'.format(file_number[0]),'w',encoding='utf-8') as arquivo:
+        with open('saida/saida{}.txt'.format(file_number[0]),'w',encoding='utf-8') as arquivo:
             for cont in content:
                 arquivo.write(cont.strip())
                 arquivo.write('\n')

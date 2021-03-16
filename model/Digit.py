@@ -26,6 +26,14 @@ class Digit(Token):
         p = re.compile(self.supported_neighbors)
         return True if p.match(char) is not None else False
 
+
+    '''
+        Retorno: 
+                 valido   -  NRO - Número
+                 inválido -  NMF - Número Mal Formado
+    '''
+
+
     def returnValue(self, current_line):
         self.type = 'NRO' if not self.error else 'NMF'
         self.current_line = current_line
