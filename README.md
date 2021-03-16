@@ -27,3 +27,24 @@ ou
     Cada arquivo de entrada terá o seu respectivo arquivo de saída.
     Os arquivos terão o seguinte padrão: "saidaX.txt". Onde X é um número inteiro igual ao arquivo de entrada.
     
+
+### Formatação dos tokens .
+O arquivo de saída irá conter os seguintes tokens formatados como mostra a seguir:
+
+```
+PRE  - Palavra Reservada
+IDE  - Identificador
+NRO  - Número
+DEL  - Delimitador
+REL  - Operador Relacional
+LOG  - Operador Lógico
+ART  - Operador Aritmético
+SIB  - Simbolo Inválido
+CMF  - Cadeia Mal Formada
+NMF  - Número Mal Formado
+CoMF - Comentário Mal Formado
+OpMF - Operador Mal Formado
+CAD  - Cadeia de Caracteres
+
+```
+
